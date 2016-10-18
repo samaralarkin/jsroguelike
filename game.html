@@ -1,0 +1,100 @@
+<head>
+<script src="rot.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function(){
+
+  var Game = {
+    player: {
+      x: 5,
+      y: 4
+      
+    },
+    init: function() {
+    
+      var displayOptions = {
+          width: 30,
+          height: 20,
+          fontSize: 18,
+          fontFamily: "ProggySquare",
+          forceSquareRatio:true
+      }
+      this.display = new ROT.Display(displayOptions);
+      //document.body.appendChild(this.display.getContainer());
+      $(document.body).prepend(this.display.getContainer());
+      this.scheduler = new ROT.Scheduler.Simple();
+      
+    },
+    draw: function (){
+      this.display.clear();
+      this.display.draw(this.player.x,this.player.y, "@");
+    }
+  }
+
+  $('#out1').text('hello');
+  $(document)[0].addEventListener("keydown", function(e) {
+    var code = e.keyCode;
+    
+    var vk = "?"; /* find the corresponding constant */
+    for (var name in ROT) {
+        if (ROT[name] == code && name.indexOf("VK_") == 0) { vk = name; }
+    }    
+    switch(vk){
+      case 'VK_NUMPAD1':
+      case 'VK_B':
+        Game.player.x -= 1;
+        Game.player.y += 1;
+        break;
+      case 'VK_NUMPAD2':
+      case 'VK_J':
+        Game.player.y += 1;
+        break;
+      case 'VK_NUMPAD3':
+      case 'VK_N':
+        Game.player.x += 1;
+        Game.player.y += 1;
+        break;
+      case 'VK_NUMPAD4':
+      case 'VK_H':
+        Game.player.x -= 1;
+        break;
+      case 'VK_NUMPAD5':
+        break;
+      case 'VK_NUMPAD6':
+      case 'VK_L':
+        Game.player.x += 1;
+        break;
+      case 'VK_NUMPAD7':
+      case 'VK_Y':
+        Game.player.x -= 1;
+        Game.player.y -= 1;
+        break;
+      case 'VK_NUMPAD8':
+      case 'VK_K':
+        Game.player.y -= 1;
+        break;
+      case 'VK_NUMPAD9':
+      case 'VK_U':
+        Game.player.x += 1;
+        Game.player.y -= 1;
+        break;
+    }
+    console.log(code);
+    $('#out1').text(code);
+    //Game.player.x += 1;
+    Game.draw();
+  });
+  Game.init();
+  //Game.display.draw(5, 4, "@");
+  Game.draw();
+});
+
+
+
+</script>
+</head>
+<body style="{ font-family: ProggySquare; src: url('ProggySquare.ttf'); }">
+
+</body>
